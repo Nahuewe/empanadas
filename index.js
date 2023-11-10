@@ -25,7 +25,6 @@ document.getElementById('btnAgregar').addEventListener('click', function () {
         }
 
         mostrarDatosGuardados();
-        console.log("Pipol", datosGuardados)
     } else {
         alert('Por favor, complete todos los campos correctamente.');
     }
@@ -89,7 +88,7 @@ function eliminarTarjeta(nombre) {
 }
 
 document.getElementById("enviarWhatsapp").addEventListener("click", function () {
-    var telefono = "+5493834523702"; // Definir el número de WhatsApp aquí
+    var telefono = "+5493834001071"; // Definir el número de WhatsApp aquí
     var mensaje = "Buenos días! Quiero encargar\n";
     var cantidadesPorTipo = {}; // Objeto para mantener un registro de las cantidades por tipo de empanada
 
