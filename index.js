@@ -26,7 +26,7 @@ document.getElementById('btnAgregar').addEventListener('click', function () {
 
         mostrarDatosGuardados();
     } else {
-        alert('Completa los tres campos');
+        alert('Te falto rellenar los tres campos');
     }
 });
 
