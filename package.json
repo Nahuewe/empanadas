@@ -1,0 +1,19 @@
+{
+  "name": "empanadas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Nahuewe/empanadas.git"
+  },
+  "author": "Nahuel Soria Parodi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nahuewe/https:/issues"
+  },
+  "homepage": "https://github.com/Nahuewe/https:#readme"
+}
