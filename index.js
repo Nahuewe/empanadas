@@ -1,9 +1,42 @@
 const datosGuardados = {};
 
+// Modal
+document.getElementById('closeModalButton').addEventListener('click', function () {
+    const modal = document.getElementById('myModal');
+    modal.classList.add('hidden');
+});
+
+// Evento de cambio en el select de nombre
+document.getElementById('nombre').addEventListener('change', function () {
+    const nombreInput = document.getElementById('nombre');
+    const nombreInvitadoInput = document.getElementById('nombreInvitado');
+
+    if (nombreInput.value === 'Invitado') {
+        // Mostrar el input para el nombre del invitado y ocultar el select
+        nombreInput.classList.add('hidden');
+        nombreInvitadoInput.classList.remove('hidden');
+        nombreInvitadoInput.focus(); // Hacer focus en el nuevo input
+    } else {
+        // Mostrar el select y ocultar el input para el nombre del invitado
+        nombreInput.classList.remove('hidden');
+        nombreInvitadoInput.classList.add('hidden');
+    }
+});
+
 document.getElementById('btnAgregar').addEventListener('click', function () {
-    const nombre = document.getElementById('nombre').value;
+    let nombre = document.getElementById('nombre').value;
     const tipoEmpanadas = document.getElementById('tipoEmpanadas').value;
     const cantidad = parseInt(document.getElementById('cantidad').value);
+    const nombreInput = document.getElementById('nombre');
+    const nombreInvitadoInput = document.getElementById('nombreInvitado');
+
+    if (nombreInput.value === 'Invitado') {
+        // Si se selecciona "Invitado", usar el valor del nuevo input
+        nombre = nombreInvitadoInput.value.trim();
+    } else {
+        // Si se selecciona otra opción, usar el valor del select original
+        nombre = nombreInput.value;
+    }
 
     if (nombre && tipoEmpanadas && !isNaN(cantidad) && cantidad > 0) {
         if (!datosGuardados[nombre]) {
@@ -24,6 +57,8 @@ document.getElementById('btnAgregar').addEventListener('click', function () {
             });
         }
 
+        nombreInput.classList.remove('hidden');
+        nombreInvitadoInput.classList.add('hidden');
         mostrarDatosGuardados();
     } else {
         alert('Te falto rellenar los tres campos');
@@ -32,7 +67,14 @@ document.getElementById('btnAgregar').addEventListener('click', function () {
 
 document.getElementById('btnCalcular').addEventListener('click', function () {
     const multiplicador = parseFloat(document.getElementById('precio').value);
-    if (!isNaN(multiplicador) && multiplicador > 0) {
+    const modal = document.getElementById('myModal');
+    const modalContent = document.getElementById('modalContent');
+
+    // Verificar si hay al menos una tarjeta de empanadas creada
+    if (Object.keys(datosGuardados).length === 0) {
+        modalContent.textContent = 'No hay empanadas para calcular';
+        modal.classList.remove('hidden');
+    } else if (!isNaN(multiplicador) && multiplicador > 0) {
         let cantidadTotal = 0;
         for (const nombre in datosGuardados) {
             const empanadas = datosGuardados[nombre];
@@ -42,10 +84,37 @@ document.getElementById('btnCalcular').addEventListener('click', function () {
         }
 
         const cantidadMultiplicada = cantidadTotal * multiplicador;
-        alert(`El total de empanadas es ${cantidadTotal}, multiplicada por $${multiplicador} son en total $${cantidadMultiplicada}`);
+        modalContent.textContent = `El total de empanadas es ${cantidadTotal}, multiplicada por $${multiplicador} son en total $${cantidadMultiplicada}`;
+        modal.classList.remove('hidden');
     } else {
-        alert('Te falto el precio');
+        // Crear el modal con el mensaje de error y mostrarlo
+        modalContent.textContent = 'Te faltó el precio';
+        modal.classList.remove('hidden');
     }
+});
+
+
+document.getElementById("enviarWhatsapp").addEventListener("click", function () {
+    var telefono = "+5493834001071"; // Definir el número de WhatsApp aquí
+    var mensaje = "Buenos días! Quiero encargar\n";
+    var cantidadesPorTipo = {}; // Objeto para mantener un registro de las cantidades por tipo de empanada
+
+    for (const nombre in datosGuardados) {
+        const empanadas = datosGuardados[nombre];
+
+        empanadas.forEach(empanada => {
+            // Si el tipo de empanada ya está en el objeto, suma la cantidad, de lo contrario, inicializa la cantidad
+            cantidadesPorTipo[empanada.tipoEmpanadas] = (cantidadesPorTipo[empanada.tipoEmpanadas] || 0) + empanada.cantidad;
+        });
+    }
+
+    // Construir el mensaje utilizando las cantidades acumuladas por tipo de empanada
+    for (const tipoEmpanada in cantidadesPorTipo) {
+        mensaje += `${cantidadesPorTipo[tipoEmpanada]} empanadas de ${tipoEmpanada}\n`;
+    }
+
+    var url = "https://api.whatsapp.com/send?phone=" + telefono + "&text=" + encodeURIComponent(mensaje);
+    window.open(url, "_blank");
 });
 
 function mostrarDatosGuardados() {
@@ -58,7 +127,7 @@ function mostrarDatosGuardados() {
         tarjetaDiv.className = 'bg-white p-4 rounded-lg shadow-md flex flex-col';
 
         const tituloDiv = document.createElement('div');
-        tituloDiv.innerHTML = `<h2 class="text-xl font-bold mb-2">${nombre}</h2>`;
+        tituloDiv.innerHTML = `<h2 class="text-xl font-bold mb-2 capitalize">${nombre}</h2>`;
         tarjetaDiv.appendChild(tituloDiv);
 
         empanadas.forEach(empanada => {
@@ -120,32 +189,27 @@ function calcularPrecio(nombre, resultadoCalculoDiv) {
 }
 
 function eliminarTarjeta(nombre) {
-    if (confirm(`¿${nombre} se arrepintió de pedir empanadas?`)) {
+    const eliminarModal = document.getElementById('eliminarModal');
+    const eliminarModalContent = document.getElementById('eliminarModalContent');
+
+    eliminarModalContent.textContent = `¿${nombre} se arrepintió de pedir empanadas?`;
+    eliminarModal.classList.remove('hidden');
+
+    const confirmarEliminarButton = document.getElementById('confirmarEliminarButton');
+    const cancelarEliminarButton = document.getElementById('cancelarEliminarButton');
+
+    confirmarEliminarButton.onclick = function () {
         delete datosGuardados[nombre];
         mostrarDatosGuardados();
-    }
+        eliminarModal.classList.add('hidden');
+    };
+
+    cancelarEliminarButton.onclick = function () {
+        eliminarModal.classList.add('hidden');
+    };
 }
 
-document.getElementById("enviarWhatsapp").addEventListener("click", function () {
-    var telefono = "+5493834001071"; // Definir el número de WhatsApp aquí
-    var mensaje = "Buenos días! Quiero encargar\n";
-    var cantidadesPorTipo = {}; // Objeto para mantener un registro de las cantidades por tipo de empanada
-
-    for (const nombre in datosGuardados) {
-        const empanadas = datosGuardados[nombre];
-
-        empanadas.forEach(empanada => {
-            // Si el tipo de empanada ya está en el objeto, suma la cantidad, de lo contrario, inicializa la cantidad
-            cantidadesPorTipo[empanada.tipoEmpanadas] = (cantidadesPorTipo[empanada.tipoEmpanadas] || 0) + empanada.cantidad;
-        });
-    }
-
-    // Construir el mensaje utilizando las cantidades acumuladas por tipo de empanada
-    for (const tipoEmpanada in cantidadesPorTipo) {
-        mensaje += `${cantidadesPorTipo[tipoEmpanada]} empanadas de ${tipoEmpanada}\n`;
-    }
-
-    var url = "https://api.whatsapp.com/send?phone=" + telefono + "&text=" + encodeURIComponent(mensaje);
-    window.open(url, "_blank");
-});
-
+function validarTexto() {
+    const input = document.getElementById('nombreInvitado');
+    input.value = input.value.replace(/[^A-Za-z]/g, ''); // Solo permite letras, elimina todo lo que no sea una letra
+}
