@@ -1,4 +1,6 @@
 const datosGuardados = {};
+let seActivaronParticulas = false;
+let confetiEnMarcha = false;
 
 // Modal
 document.getElementById('closeModalButton').addEventListener('click', function () {
@@ -22,6 +24,155 @@ document.getElementById('nombre').addEventListener('change', function () {
         nombreInvitadoInput.classList.add('hidden');
     }
 });
+
+function celebrar() {
+    if (seActivaronParticulas) {
+        if (!confetiEnMarcha) {
+            confetiEnMarcha = true;
+            particlesJS('particles-js', {
+                "particles": {
+                    "number": {
+                        "value": 150,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#ff0000" // Color de las partículas (puedes cambiarlo)
+                    },
+                    "shape": {
+                        "type": "circle",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": false,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 5,
+                        "random": true
+                    },
+                    "line_linked": {
+                        "enable": false
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": 10,
+                        "direction": "bottom",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false
+                    }
+                },
+                "interactivity": {
+                    "events": {
+                        "onhover": {
+                            "enable": false
+                        },
+                        "onclick": {
+                            "enable": false
+                        }
+                    },
+                    "modes": {
+                        "bubble": {
+                            "distance": 250,
+                            "duration": 2,
+                            "size": 0,
+                            "opacity": 0
+                        },
+                        "repulse": {
+                            "distance": 400,
+                            "duration": 4
+                        }
+                    }
+                }
+            });
+        }
+    }
+}
+
+function celebrar() {
+    particlesJS('particles-js', {
+        "particles": {
+            "number": {
+                "value": 150,
+                "density": {
+                    "enable": true,
+                    "value_area": 800
+                }
+            },
+            "color": {
+                "value": "#4b0082" // Color de las partículas
+            },
+            "shape": {
+                "type": "circle",
+                "stroke": {
+                    "width": 0,
+                    "color": "#000000"
+                }
+            },
+            "opacity": {
+                "value": 0.5,
+                "random": false,
+                "anim": {
+                    "enable": false,
+                    "speed": 1,
+                    "opacity_min": 0.1,
+                    "sync": false
+                }
+            },
+            "size": {
+                "value": 5,
+                "random": true
+            },
+            "line_linked": {
+                "enable": false
+            },
+            "move": {
+                "enable": true,
+                "speed": 10,
+                "direction": "bottom",
+                "random": true,
+                "straight": false,
+                "out_mode": "out",
+                "bounce": false
+            }
+        },
+        "interactivity": {
+            "events": {
+                "onhover": {
+                    "enable": false
+                },
+                "onclick": {
+                    "enable": false
+                }
+            },
+            "modes": {
+                "bubble": {
+                    "distance": 250,
+                    "duration": 2,
+                    "size": 0,
+                    "opacity": 0
+                },
+                "repulse": {
+                    "distance": 400,
+                    "duration": 4
+                }
+            }
+        }
+    });
+}
 
 document.getElementById('btnAgregar').addEventListener('click', function () {
     let nombre = document.getElementById('nombre').value;
@@ -60,8 +211,22 @@ document.getElementById('btnAgregar').addEventListener('click', function () {
         nombreInput.classList.remove('hidden');
         nombreInvitadoInput.classList.add('hidden');
         mostrarDatosGuardados();
+
+        const mediaQuery = window.matchMedia('(max-width: 640px)');
+        if (mediaQuery.matches) {
+            const resultadoDiv = document.getElementById('resultado');
+            const lastCard = resultadoDiv.lastElementChild;
+            if (lastCard) {
+                lastCard.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
+            }
+        }
+
+        if (!seActivaronParticulas) { // Verificar si las partículas no se han activado aún
+            celebrar(); // Llamar a la función para iniciar el efecto de partículas (celebrar)
+            seActivaronParticulas = true; // Establecer la bandera a true para indicar que ya se activaron
+        }
     } else {
-        alert('Te falto rellenar los tres campos');
+        alert('Te faltó rellenar los tres campos');
     }
 });
 
@@ -93,28 +258,45 @@ document.getElementById('btnCalcular').addEventListener('click', function () {
     }
 });
 
-
-document.getElementById("enviarWhatsapp").addEventListener("click", function () {
-    var telefono = "+5493834001071"; // Definir el número de WhatsApp aquí
+function enviarWhatsapp(numero) {
     var mensaje = "Buenos días! Quiero encargar\n";
-    var cantidadesPorTipo = {}; // Objeto para mantener un registro de las cantidades por tipo de empanada
+    var cantidadesPorTipo = {};
 
     for (const nombre in datosGuardados) {
         const empanadas = datosGuardados[nombre];
-
         empanadas.forEach(empanada => {
-            // Si el tipo de empanada ya está en el objeto, suma la cantidad, de lo contrario, inicializa la cantidad
             cantidadesPorTipo[empanada.tipoEmpanadas] = (cantidadesPorTipo[empanada.tipoEmpanadas] || 0) + empanada.cantidad;
         });
     }
 
-    // Construir el mensaje utilizando las cantidades acumuladas por tipo de empanada
     for (const tipoEmpanada in cantidadesPorTipo) {
         mensaje += `${cantidadesPorTipo[tipoEmpanada]} empanadas de ${tipoEmpanada}\n`;
     }
 
-    var url = "https://api.whatsapp.com/send?phone=" + telefono + "&text=" + encodeURIComponent(mensaje);
+    var url = "https://api.whatsapp.com/send?phone=" + numero + "&text=" + encodeURIComponent(mensaje);
     window.open(url, "_blank");
+}
+
+document.getElementById("enviarWhatsapp").addEventListener("click", function () {
+    const numerosModal = document.getElementById('numerosModal');
+    numerosModal.classList.remove('hidden');
+});
+
+document.getElementById("seleccionarNumeroButton").addEventListener("click", function () {
+    const selectedNumero = document.querySelector('input[name="numero"]:checked');
+    if (selectedNumero) {
+        const numero = selectedNumero.value;
+        enviarWhatsapp(numero);
+        const numerosModal = document.getElementById('numerosModal');
+        numerosModal.classList.add('hidden');
+    } else {
+        alert('Por favor, selecciona un número');
+    }
+});
+
+document.getElementById("closeNumerosModalButton").addEventListener("click", function () {
+    const numerosModal = document.getElementById('numerosModal');
+    numerosModal.classList.add('hidden');
 });
 
 function mostrarDatosGuardados() {

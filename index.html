@@ -6,8 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Munimpanadas</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="shortcut icon" type="./image/png" href="./empanadaLogo.jpg">
+    <link rel="shortcut icon" type="image/png" href="./empanadaLogo.jpg">
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 
 <body>
@@ -19,13 +20,14 @@
         <img class="h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 ml-4" src="./jesusBailando.gif" alt="Jesusito bailando">
     </div>
 
-    <div
-        class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg flex flex-col sm:flex-row items-center justify-between">
-        <div class="flex flex-col sm:flex-row items-center">
+    <div id="particles-js" style="position: absolute; width: 100%; height: 100%; z-index: -1;"></div>
 
-            <label class="text-lg font-bold text-gray-700 mb-2 sm:mb-0 mr-4">Nombre:</label>
+    <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg grid   gap-4">
+        <div class="col-span-1 sm:col-span-2 lg:col-span-1 flex flex-col">
+            <!-- Nombre y Empanadas -->
+            <label class="text-lg font-bold text-gray-700 mb-2">Nombre:</label>
             <select id="nombre"
-                class="w-36 sm:w-36 p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4 sm:mb-0 sm:mr-4 rounded-lg">
+                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4">
                 <option value="" hidden selected>Comensal</option>
                 <option value="Agustín">Agustín</option>
                 <option value="Carlitos">Carlitos</option>
@@ -44,12 +46,12 @@
 
             <!-- Nuevo input para el nombre del invitado -->
             <input type="text" id="nombreInvitado" oninput="validarTexto()"
-                class="w-36 p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4 sm:mb-0 sm:mr-4 rounded-lg hidden capitalize"
+                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4 capitalize hidden"
                 placeholder="Comensal VIP">
 
-            <label class="text-lg font-bold text-gray-700 mb-2 sm:mb-0 mr-4">Empanadas:</label>
+            <label class="text-lg font-bold text-gray-700 mb-2">Empanadas:</label>
             <select id="tipoEmpanadas"
-                class="w-36 sm:w-36 p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4 sm:mb-0 sm:mr-4 rounded-lg">
+                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4">
                 <option value="" hidden selected>Empanadukis</option>
                 <option value="Arabes">Arabes</option>
                 <option value="Berenjena">Berenjena</option>
@@ -67,37 +69,46 @@
                 <option value="Salchicha y Cheddar">Salchicha y Cheddar</option>
                 <option value="Verduras y Queso">Verduras y Queso</option>
             </select>
+        </div>
 
-            <label class="text-lg font-bold text-gray-700 mb-2 sm:mb-0 mr-4">Cantidad:</label>
+        <div class="col-span-1 sm:col-span-2 lg:col-span-1 flex flex-col">
+            <!-- Cantidad y Agregar -->
+            <label class="text-lg font-bold text-gray-700 mb-2">Cantidad:</label>
             <input id="cantidad"
-                class="w-36 sm:w-36 p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4 sm:mb-0 sm:mr-4 rounded-lg"
+                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4"
                 type="number">
 
+            <label class="text-lg font-bold text-gray-700 mb-2">ㅤ</label>
             <button id="btnAgregar"
-                class="w-36 px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-700 focus:outline-none mb-4 sm:mb-0 sm:mr-4 rounded-lg">
+                class="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-700 focus:outline-none mb-4">
                 Agregar
             </button>
+        </div>
 
-            <div class="flex flex-col sm:flex-row items-center">
-                <label class="text-lg font-bold text-gray-700 mb-2 sm:mb-0 mr-4">Precio:</label>
-                <input id="precio"
-                    class="w-36 p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4 sm:mb-0 sm:mr-4 rounded-lg"
-                    type="number">
-            </div>
+        <div class="col-span-1 sm:col-span-2 lg:col-span-1 flex flex-col">
+            <!-- Precio y Calcular -->
+            <label class="text-lg font-bold text-gray-700 mb-2">Precio:</label>
+            <input id="precio"
+                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4"
+                type="number">
 
+            <label class="text-lg font-bold text-gray-700 mb-2">ㅤ</label>
             <button id="btnCalcular"
-                class="w-36 px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 focus:outline-none rounded-lg mb-4 sm:mb-0 sm:mr-4">
+                class="w-full px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 focus:outline-none mb-4">
                 Calcular
             </button>
         </div>
 
-        <button id="enviarWhatsapp"
-            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline rounded-lg sm:mb-0">
-            Mandar guarap
-        </button>
+        <div class="col-span-1 sm:col-span-2 lg:col-span-3">
+            <!-- Mandar guarap -->
+            <button id="enviarWhatsapp"
+                class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                Mandar guarap
+            </button>
+        </div>
     </div>
 
-    <!-- Modal calcular -->
+    <!-- Modal para calcular -->
 
     <div id="myModal"
         class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
@@ -110,7 +121,7 @@
         </div>
     </div>
 
-    <!-- Modal comensal -->
+    <!-- Modal para liminar comensal -->
 
     <div id="eliminarModal"
         class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
@@ -125,6 +136,40 @@
                     class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
                     Cerrar
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para enviar WhatsApp -->
+
+    <div id="numerosModal"
+        class="fixed top-0 left-0 flex justify-center items-center w-full h-full bg-gray-800 bg-opacity-50 hidden">
+        <div class="bg-white rounded-lg p-8 w-96">
+            <h2 class="text-xl font-bold mb-4">Seleccioná la sucursal</h2>
+            <div id="numerosModalContent" class="flex flex-col gap-4">
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="numero" value="+5493834001071">
+                    <span>Av. Colón</span>
+                </label>
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="numero" value="+5493835102222">
+                    <span>Av. Misiones</span>
+                </label>
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="numero" value="+5493834602031">
+                    <span>Alameda</span>
+                </label>
+                <label class="flex items-center gap-2">
+                    <input type="radio" name="numero" value="+5493834888000">
+                    <span>Valle Vieja</span>
+                </label>
+                <!-- Agregar más opciones de números si es necesario -->
+            </div>
+            <div class="flex justify-end mt-6">
+                <button id="seleccionarNumeroButton"
+                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none">Enviar</button>
+                <button id="closeNumerosModalButton"
+                    class="ml-4 bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 focus:outline-none">Cancelar</button>
             </div>
         </div>
     </div>
