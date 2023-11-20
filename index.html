@@ -5,21 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Munimpanadas</title>
+    <!-- TailwindCSS -->
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-    <link rel="shortcut icon" type="image/png" href="./empanadaLogo.jpg">
-    <link rel="stylesheet" href="style.css">
+    <!-- Favicon -->
+    <link rel="shortcut icon" type="image/png" href="./src/empanadaLogo.jpg">
+    <!-- Estilos -->
+    <link rel="stylesheet" href="./style/style.css">
+    <!-- Confeti -->
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 
 <body>
     <div class="titulo p-6 flex items-center justify-center text-center">
-        <img class="h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 mr-4" src="./jesusBailando.gif" alt="Jesusito bailando">
+        <img class="h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 mr-4" src="./src/jesusBailando.gif" alt="Jesusito bailando">
         <div class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-2 rainbow-text">
             ¡Bienvenido al sistema para encargar empanadas!
         </div>
-        <img class="h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 ml-4" src="./jesusBailando.gif" alt="Jesusito bailando">
+        <img class="h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 ml-4" src="./src/jesusBailando.gif" alt="Jesusito bailando">
     </div>
 
+    <!-- Confeti -->
     <div id="particles-js" style="position: absolute; width: 100%; height: 100%; z-index: -1;"></div>
 
     <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg grid   gap-4">
@@ -121,7 +126,7 @@
         </div>
     </div>
 
-    <!-- Modal para liminar comensal -->
+    <!-- Modal para eliminar comensal -->
 
     <div id="eliminarModal"
         class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
@@ -178,7 +183,7 @@
         class="container mx-auto mt-6 p-4 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
     </div>
 
-    <script src="./index.js"></script>
+    <script src="./js/index.js"></script>
 </body>
 
 </html>
