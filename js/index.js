@@ -128,7 +128,9 @@ function enviarWhatsapp(numero) {
     }
 
     for (const tipoEmpanada in cantidadesPorTipo) {
-        mensaje += `${cantidadesPorTipo[tipoEmpanada]} empanadas de ${tipoEmpanada}\n`;
+        const cantidad = cantidadesPorTipo[tipoEmpanada];
+        const empanadaText = cantidad === 1 ? 'empanada' : 'empanadas';
+        mensaje += `${cantidad} ${empanadaText} de ${tipoEmpanada}\n`;
     }
 
     var url = "https://api.whatsapp.com/send?phone=" + numero + "&text=" + encodeURIComponent(mensaje);
@@ -240,6 +242,15 @@ function calcularPrecio(nombre, resultadoCalculoDiv) {
     }
 }
 
+// Detener el confeti
+
+function detenerConfeti() {
+    if (confetiEnMarcha) {
+        particlesJS('particles-js', 'destroy');
+        confetiEnMarcha = false;
+    }
+}
+
 // Funcion que sirve para eliminar al comensal
 
 function eliminarTarjeta(nombre) {
@@ -261,6 +272,8 @@ function eliminarTarjeta(nombre) {
     cancelarEliminarButton.onclick = function () {
         eliminarModal.classList.add('hidden');
     };
+
+    detenerConfeti();
 }
 
 // Expresion regular hecha para que no se puedan ingresar numeros u caracteres especiales en lso input
