@@ -28,7 +28,7 @@ document.getElementById('nombre').addEventListener('change', function () {
 // Agregar el comensal, el tipo de empanada y la cantidad de las mismas
 
 document.getElementById('btnAgregar').addEventListener('click', function () {
-    let nombre = document.getElementById('nombre').value;
+    let nombre = document.getElementById('nombre').value.trim();
     const tipoEmpanadas = document.getElementById('tipoEmpanadas').value;
     const cantidad = parseInt(document.getElementById('cantidad').value);
     const nombreInput = document.getElementById('nombre');
