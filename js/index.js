@@ -344,7 +344,7 @@ function eliminarTarjeta(nombre) {
 // Expresion regular hecha para que no se puedan ingresar numeros u caracteres especiales en los input
 
 function validarTexto() {
-    const input = document.getElementById('nombreInvitado');
+    const input = document.getElementById('nombre');
     input.value = input.value.replace(/[^A-Za-z]/g, ''); // Solo permite letras, elimina todo lo que no sea una letra
 }
 
