@@ -29,34 +29,27 @@
 
     <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg grid   gap-4">
         <div class="col-span-1 sm:col-span-2 lg:col-span-1 flex flex-col">
-            <!-- Nombre y Empanadas -->
+            <!-- Nombre, precio y cocucha -->
             <label class="text-lg font-bold text-gray-700 mb-2">Nombre:</label>
-            <select id="nombre"
-                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4">
-                <option value="" hidden selected>Comensal</option>
-                <option value="Boros">Boros</option>
-                <option value="Carlitos">Carlitos</option>
-                <option value="Diego">Diego</option>
-                <option value="Esteban">Esteban</option>
-                <option value="Franco">Franco</option>
-                <option value="Gabi">Gabi</option>
-                <option value="Gonza">Gonza</option>
-                <option value="Juan">Juan</option>
-                <option value="Lautaro">Lautaro</option>
-                <option value="Luciano">Luciano</option>
-                <option value="Lucio">Lucio</option>
-                <option value="Reynoso">Reynoso</option>
-                <option value="Maxi">Maxi</option>
-                <option value="Nahuel">Nahuel</option>
-                <option value="Zamboni">Zamboni</option>
-                <option value="Invitado" class="font-semibold">Invitado</option>
-            </select>
+            <input type="text" id="nombre" oninput="validarTexto()" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4">
 
             <!-- Nuevo input para el nombre del invitado -->
             <input type="text" id="nombreInvitado" oninput="validarTexto()"
                 class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4 capitalize hidden"
                 placeholder="Comensal VIP">
 
+            <label class="text-lg font-bold text-gray-700 mb-2">Precio:</label>
+            <input id="precio"
+                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4"
+                type="number">
+
+            <!-- <label for="cocucha" class="text-lg font-bold text-gray-700 mb-2">Coquita:</label>
+            <input type="text" id="cocucha"
+                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4"> -->
+        </div>
+
+        <div class="col-span-1 sm:col-span-2 lg:col-span-1 flex flex-col">
+            <!-- Empanadas, Agregar y cantidad de cocucha-->
             <label class="text-lg font-bold text-gray-700 mb-2">Empanadas:</label>
             <select id="tipoEmpanadas"
                 class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4">
@@ -79,34 +72,37 @@
                 <option value="Pollo al Champiñon">Pollo al Champiñon</option>
                 <option value="Verdura">Verdura</option>
             </select>
-        </div>
-
-        <div class="col-span-1 sm:col-span-2 lg:col-span-1 flex flex-col">
-            <!-- Cantidad y Agregar -->
-            <label class="text-lg font-bold text-gray-700 mb-2">Cantidad:</label>
-            <input id="cantidad"
-                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4"
-                type="number">
 
             <label class="text-lg font-bold text-gray-700 mb-2">ㅤ</label>
             <button id="btnAgregar"
                 class="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-700 focus:outline-none mb-4">
                 Agregar
             </button>
+
+            <!-- <label class="text-lg font-bold text-gray-700 mb-2">Cantidad de coquita:</label>
+            <input id="cantidadCoquita"
+                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4"
+                type="number"> -->
         </div>
 
         <div class="col-span-1 sm:col-span-2 lg:col-span-1 flex flex-col">
-            <!-- Precio y Calcular -->
-            <label class="text-lg font-bold text-gray-700 mb-2">Precio:</label>
-            <input id="precio"
+            <!-- Cantidad, calcular y precio de la cocucha -->
+            <label class="text-lg font-bold text-gray-700 mb-2">Cantidad:</label>
+            <input id="cantidad"
                 class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4"
                 type="number">
+
 
             <label class="text-lg font-bold text-gray-700 mb-2">ㅤ</label>
             <button id="btnCalcular"
                 class="w-full px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 focus:outline-none mb-4">
                 Calcular
             </button>
+
+            <!-- <label class="text-lg font-bold text-gray-700 mb-2">Precio de la coquita:</label>
+            <input id="precioCoquita"
+                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4"
+                type="number"> -->
         </div>
 
         <div class="col-span-1 sm:col-span-2 lg:col-span-3">

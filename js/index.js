@@ -28,7 +28,7 @@ document.getElementById('nombre').addEventListener('change', function () {
 // Agregar el comensal, el tipo de empanada y la cantidad de las mismas
 
 document.getElementById('btnAgregar').addEventListener('click', function () {
-    let nombre = document.getElementById('nombre').value;
+    let nombre = document.getElementById('nombre').value.trim();
     const tipoEmpanadas = document.getElementById('tipoEmpanadas').value;
     const cantidad = parseInt(document.getElementById('cantidad').value);
     const nombreInput = document.getElementById('nombre');
@@ -180,14 +180,56 @@ function mostrarDatosGuardados() {
         tituloDiv.innerHTML = `<h2 class="text-xl font-bold mb-2 capitalize">${nombre}</h2>`;
         tarjetaDiv.appendChild(tituloDiv);
 
-        empanadas.forEach(empanada => {
+        empanadas.forEach((empanada, index) => {
             const empanadaDiv = document.createElement('div');
             empanadaDiv.className = 'mb-2';
             empanadaDiv.innerHTML = `
                 <p class="text-gray-700">Tipo de Empanada: <span class="font-bold">${empanada.tipoEmpanadas}</span></p>
-                <p class="text-gray-700">Cantidad: <span class="font-bold">${empanada.cantidad}</span></p>
             `;
+
+            const botonEliminarEmpanada = document.createElement('button');
+            botonEliminarEmpanada.className = 'bg-red-500 text-white px-2 rounded hover:bg-red-700 focus:outline-none';
+            botonEliminarEmpanada.textContent = 'Eliminar empanada';
+            botonEliminarEmpanada.onclick = function () {
+                eliminarTipoEmpanada(nombre, index);
+            };
+            
+            const cantidadDiv = document.createElement('div');
+            cantidadDiv.className = 'flex items-center mt-2';
+        
+            const cantidadLabel = document.createElement('p');
+            cantidadLabel.className = 'text-gray-700 mr-2';
+            cantidadLabel.textContent = 'Cantidad:';
+        
+            const cantidadCantidad = document.createElement('span');
+            cantidadCantidad.className = 'font-bold mr-2';
+            cantidadCantidad.textContent = empanada.cantidad;
+        
+            const botonIncrementar = document.createElement('button');
+            botonIncrementar.className = 'bg-green-500 text-white px-2 rounded hover:bg-green-700 focus:outline-none';
+            botonIncrementar.textContent = '+';
+            botonIncrementar.onclick = function () {
+                empanada.cantidad++;
+                cantidadCantidad.textContent = empanada.cantidad;
+            };
+        
+            const botonDecrementar = document.createElement('button');
+            botonDecrementar.className = 'bg-red-500 text-white px-2 mr-2 rounded hover:bg-red-700 focus:outline-none';
+            botonDecrementar.textContent = '-';
+            botonDecrementar.onclick = function () {
+                if (empanada.cantidad > 0) {
+                    empanada.cantidad--;
+                    cantidadCantidad.textContent = empanada.cantidad;
+                }
+            };
+        
+            cantidadDiv.appendChild(cantidadLabel);
+            cantidadDiv.appendChild(cantidadCantidad);
+            cantidadDiv.appendChild(botonDecrementar);
+            cantidadDiv.appendChild(botonIncrementar);
+            empanadaDiv.appendChild(botonEliminarEmpanada);
             tarjetaDiv.appendChild(empanadaDiv);
+            tarjetaDiv.appendChild(cantidadDiv);
         });
 
         const resultadoCalculoDiv = document.createElement('div');
@@ -251,6 +293,29 @@ function detenerConfeti() {
     }
 }
 
+// Eliminar el tipo de empanada en particular
+
+function eliminarTipoEmpanada(nombre, indice) {
+    const eliminarModal = document.getElementById('eliminarModal');
+    const eliminarModalContent = document.getElementById('eliminarModalContent');
+
+    eliminarModalContent.textContent = `¿No tenian esta empanada?`;
+    eliminarModal.classList.remove('hidden');
+
+    const confirmarEliminarButton = document.getElementById('confirmarEliminarButton');
+    const cancelarEliminarButton = document.getElementById('cancelarEliminarButton');
+
+    confirmarEliminarButton.onclick = function () {
+        datosGuardados[nombre].splice(indice, 1);
+        mostrarDatosGuardados();
+        eliminarModal.classList.add('hidden');
+    };
+
+    cancelarEliminarButton.onclick = function () {
+        eliminarModal.classList.add('hidden');
+    };
+}
+
 // Funcion que sirve para eliminar al comensal
 
 function eliminarTarjeta(nombre) {
@@ -276,10 +341,10 @@ function eliminarTarjeta(nombre) {
     detenerConfeti();
 }
 
-// Expresion regular hecha para que no se puedan ingresar numeros u caracteres especiales en lso input
+// Expresion regular hecha para que no se puedan ingresar numeros u caracteres especiales en los input
 
 function validarTexto() {
-    const input = document.getElementById('nombreInvitado');
+    const input = document.getElementById('nombre');
     input.value = input.value.replace(/[^A-Za-z]/g, ''); // Solo permite letras, elimina todo lo que no sea una letra
 }
 
