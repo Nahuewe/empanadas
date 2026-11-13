@@ -463,7 +463,7 @@ function construirMensajePedido() {
 }
 
 function construirMensajeConsulta() {
-    return '¿Qué empanadas tienen disponibles?';
+    return 'Buen día! ¿Qué empanadas tienen disponibles?';
 }
 
 function construirMensajeDesglose() {

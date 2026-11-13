@@ -1,17 +1,17 @@
 :root {
-    --fondo: #fbf6ee;
-    --superficie: #ffffff;
-    --superficie-2: #f5ece0;
-    --borde: #e8dcc8;
-    --tinta: #2a2118;
-    --tinta-suave: #7a6a58;
-    --masa: #d98a2b;
-    --masa-oscura: #b86e16;
-    --masa-clara: #fbe9cc;
-    --verde: #2f9e63;
-    --whatsapp: #1fa855;
-    --whatsapp-oscuro: #178a45;
-    --rojo: #d6453d;
+    --fondo: #e9dcc3;
+    --superficie: #f6ecd9;
+    --superficie-2: #ecdfc5;
+    --borde: #d6c4a1;
+    --tinta: #33261a;
+    --tinta-suave: #6b5944;
+    --masa: #c97b22;
+    --masa-oscura: #a65f12;
+    --masa-clara: #f1d7a3;
+    --verde: #4a8a5c;
+    --whatsapp: #3d9a62;
+    --whatsapp-oscuro: #2f7d4e;
+    --rojo: #b9483c;
     --radio: 14px;
     --sombra: 0 1px 2px rgba(42, 33, 24, .06), 0 8px 24px rgba(42, 33, 24, .07);
     --fuente-display: 'Fraunces', Georgia, serif;
@@ -71,7 +71,7 @@ button { cursor: pointer; }
     border-radius: 12px;
 }
 
-.chip-dato--destacado { background: var(--masa); color: #fff; }
+.chip-dato--destacado { background: var(--masa); color: #fff6e3; }
 .chip-dato__valor { font-weight: 700; font-size: 1.2rem; font-variant-numeric: tabular-nums; }
 .chip-dato__label { font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; opacity: .75; }
 
@@ -122,12 +122,12 @@ button { cursor: pointer; }
     outline-offset: 2px;
 }
 
-.boton--primario { background: var(--masa); color: #fff; box-shadow: 0 2px 8px rgba(217, 138, 43, .35); }
+.boton--primario { background: var(--masa); color: #fff6e3; box-shadow: 0 2px 8px rgba(201, 123, 34, .3); }
 .boton--primario:hover:not(:disabled) { background: var(--masa-oscura); }
 .boton--suave { background: var(--superficie); border-color: var(--borde); color: var(--tinta); }
 .boton--suave:hover:not(:disabled) { background: var(--superficie-2); }
-.boton--peligro { background: var(--rojo); color: #fff; }
-.boton--whatsapp { background: var(--whatsapp); color: #fff; box-shadow: 0 2px 8px rgba(31, 168, 85, .35); }
+.boton--peligro { background: var(--rojo); color: #fff6e3; }
+.boton--whatsapp { background: var(--whatsapp); color: #fff6e3; box-shadow: 0 2px 8px rgba(61, 154, 98, .3); }
 .boton--whatsapp:hover:not(:disabled) { background: var(--whatsapp-oscuro); }
 
 /* ---------- Layout ---------- */
@@ -184,7 +184,7 @@ button { cursor: pointer; }
 
 .input { width: 100%; padding: .6rem .8rem; }
 .input:focus, .input-prefijo:focus-within, .stepper:focus-within {
-    outline: 3px solid rgba(217, 138, 43, .35);
+    outline: 3px solid rgba(201, 123, 34, .3);
     border-color: var(--masa);
 }
 
@@ -228,9 +228,9 @@ button { cursor: pointer; }
 .chip__nombre { padding: .4rem .5rem .4rem .9rem; font-weight: 500; font-size: .9rem; }
 .chip__quitar { padding: .4rem .75rem .4rem .3rem; color: var(--tinta-suave); font-size: 1.05rem; line-height: 1; }
 .chip__quitar:hover { color: var(--rojo); }
-.chip--activo { background: var(--masa); border-color: var(--masa); color: #fff; }
-.chip--activo .chip__quitar { color: rgba(255, 255, 255, .8); }
-.chip--activo .chip__quitar:hover { color: #fff; }
+.chip--activo { background: var(--masa); border-color: var(--masa); color: #fff6e3; }
+.chip--activo .chip__quitar { color: rgba(255, 246, 227, .85); }
+.chip--activo .chip__quitar:hover { color: #fff6e3; }
 
 /* ---------- Sabores ---------- */
 
@@ -254,6 +254,7 @@ button { cursor: pointer; }
     border: 1px solid var(--borde);
     border-radius: 10px;
     font-size: .88rem;
+    color: var(--tinta);
     font-weight: 500;
     transition: border-color .12s ease, background .12s ease, transform .12s ease;
 }
@@ -292,7 +293,7 @@ button { cursor: pointer; }
 /* ---------- Tarjetas de comensal ---------- */
 
 .tarjeta { border: 1px solid var(--borde); border-radius: 12px; padding: .8rem .9rem; background: var(--superficie); }
-.tarjeta--pagada { background: #eef8f2; border-color: #bfe5cf; }
+.tarjeta--pagada { background: #e0ebd0; border-color: #b4cd9f; }
 .tarjeta__cabecera { display: flex; justify-content: space-between; align-items: center; gap: .5rem; margin-bottom: .4rem; }
 .tarjeta__nombre { font-size: 1rem; font-weight: 700; }
 
@@ -304,7 +305,7 @@ button { cursor: pointer; }
 .mini { width: 26px; height: 26px; border: 1px solid var(--borde); background: var(--superficie-2); border-radius: 7px; font-weight: 700; line-height: 1; }
 .mini:hover { background: var(--masa-clara); border-color: var(--masa); }
 .mini--peligro { color: var(--rojo); }
-.mini--peligro:hover { background: #fde8e6; border-color: var(--rojo); }
+.mini--peligro:hover { background: #efcfc3; border-color: var(--rojo); }
 
 .tarjeta__pie { display: flex; flex-direction: column; gap: .15rem; margin-top: .6rem; padding-top: .5rem; border-top: 1px dashed var(--borde); font-size: .85rem; color: var(--tinta-suave); }
 .tarjeta__fila { display: flex; justify-content: space-between; }
@@ -393,7 +394,7 @@ button { cursor: pointer; }
     padding: .7rem 1.1rem;
     border-radius: 10px;
     background: var(--tinta);
-    color: #fff;
+    color: #fff6e3;
     font-size: .9rem;
     opacity: 0;
     pointer-events: none;
