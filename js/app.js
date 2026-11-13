@@ -453,11 +453,8 @@ function consolidarPedido() {
 function construirMensajePedido() {
     let mensaje = '¡Buenos días! Quisiera encargar lo siguiente:\n\n';
     consolidarPedido().forEach(linea => {
-        mensaje += `${linea.cantidad}x ${linea.sabor}\n`;
+        mensaje += `${linea.cantidad} ${linea.sabor}\n`;
     });
-    const total = unidadesTotales();
-    const docenas = textoDocenas(total);
-    mensaje += `\nTotal: ${total} ${total === 1 ? 'empanada' : 'empanadas'}${docenas ? ` (${docenas})` : ''}`;
     mensaje += '\n\n¿A qué hora estarían listas y cuánto sería todo? ¡Muchas gracias!';
     return mensaje;
 }
