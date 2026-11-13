@@ -4,179 +4,183 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Munimpanadas</title>
-    <!-- TailwindCSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.16/dist/tailwind.min.css" rel="stylesheet">
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/png" href="./src/empanadaLogo.jpg">
-    <!-- Estilos -->
+    <title>Munimpanadas — pedido de empanadas</title>
+    <link rel="icon" type="image/png" href="./src/empanadaLogo.jpg">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style/style.css">
-    <!-- Confeti -->
-    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 </head>
 
 <body>
-    <div class="titulo p-6 flex items-center justify-center text-center">
-        <img class="h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 mr-4" src="./src/jesusBailando.gif" alt="Jesusito bailando">
-        <div class="text-lg sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-bold mb-2 rainbow-text">
-            ¡Bienvenido al sistema para encargar empanadas!
-        </div>
-        <img class="h-12 sm:h-16 md:h-20 lg:h-24 xl:h-28 ml-4" src="./src/jesusBailando.gif" alt="Jesusito bailando">
-    </div>
 
-    <!-- Confeti -->
-    <div id="particles-js" style="position: absolute; width: 100%; height: 100%; z-index: -1;"></div>
-
-    <div class="container mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg grid   gap-4">
-        <div class="col-span-1 sm:col-span-2 lg:col-span-1 flex flex-col">
-            <!-- Nombre, precio y cocucha -->
-            <label class="text-lg font-bold text-gray-700 mb-2">Nombre:</label>
-            <input type="text" id="nombre" oninput="validarTexto()" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4">
-
-            <!-- Nuevo input para el nombre del invitado -->
-            <input type="text" id="nombreInvitado" oninput="validarTexto()"
-                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4 capitalize hidden"
-                placeholder="Comensal VIP">
-
-            <label class="text-lg font-bold text-gray-700 mb-2">Precio:</label>
-            <input id="precio"
-                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4"
-                type="number">
-
-            <!-- <label for="cocucha" class="text-lg font-bold text-gray-700 mb-2">Coquita:</label>
-            <input type="text" id="cocucha"
-                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4"> -->
-        </div>
-
-        <div class="col-span-1 sm:col-span-2 lg:col-span-1 flex flex-col">
-            <!-- Empanadas, Agregar y cantidad de cocucha-->
-            <label class="text-lg font-bold text-gray-700 mb-2">Empanadas:</label>
-            <select id="tipoEmpanadas"
-                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4">
-                <option value="" hidden selected>Empanadukis</option>
-                <option value="Arabe">Arabe</option>
-                <option value="Atun">Atun</option>
-                <option value="Batata y Muzzza">Batata y Muzzza</option>
-                <option value="Calabacin c/ Queso">Calabacin c/ Queso</option>
-                <option value="Capresse">Capresse</option>
-                <option value="Criolla c/ Aceitunas">Criolla c/ Aceitunas</option>
-                <option value="Criolla Picante">Criolla Picante</option>
-                <option value="Criolla Suave">Criolla Suave</option>
-                <option value="Fugazzeta">Fugazzeta</option>
-                <option value="Humita">Humita</option>
-                <option value="Jamon y Queso">Jamon y Queso</option>
-                <option value="Jamon, Muzza y Roquefort">Jamon, Muzza y Roquefort</option>
-                <option value="Matambre">Matambre</option>
-                <option value="Membrillo, Nuez y Muzza">Membrillo, Nuez y Muzza</option>
-                <option value="Muzza y Roquefort">Muzza y Roquefort</option>
-                <option value="Napolitana">Napolitana</option>
-                <option value="Osobuco al Vino">Osobuco al Vino</option>
-                <option value="Panceta, Ciruela y Muzza">Panceta, Ciruela y Muzza</option>
-                <option value="Pollo">Pollo</option>
-                <option value="Pollo al Champiñon">Pollo al Champiñon</option>
-                <option value="Verdura">Verdura</option>
-            </select>
-
-            <label class="text-lg font-bold text-gray-700 mb-2">ㅤ</label>
-            <button id="btnAgregar"
-                class="w-full px-4 py-2 bg-indigo-500 text-white rounded hover:bg-indigo-700 focus:outline-none mb-4">
-                Agregar
-            </button>
-
-            <!-- <label class="text-lg font-bold text-gray-700 mb-2">Cantidad de coquita:</label>
-            <input id="cantidadCoquita"
-                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4"
-                type="number"> -->
-        </div>
-
-        <div class="col-span-1 sm:col-span-2 lg:col-span-1 flex flex-col">
-            <!-- Cantidad, calcular y precio de la cocucha -->
-            <label class="text-lg font-bold text-gray-700 mb-2">Cantidad:</label>
-            <input id="cantidad"
-                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4"
-                type="number">
-
-
-            <label class="text-lg font-bold text-gray-700 mb-2">ㅤ</label>
-            <button id="btnCalcular"
-                class="w-full px-4 py-2 bg-yellow-600 text-white rounded hover:bg-yellow-700 focus:outline-none mb-4">
-                Calcular
-            </button>
-
-            <!-- <label class="text-lg font-bold text-gray-700 mb-2">Precio de la coquita:</label>
-            <input id="precioCoquita"
-                class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-indigo-500 mb-4"
-                type="number"> -->
-        </div>
-
-        <div class="col-span-1 sm:col-span-2 lg:col-span-3">
-            <!-- Mandar guarap -->
-            <button id="enviarWhatsapp"
-                class="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
-                Mandar guarap
-            </button>
-        </div>
-    </div>
-
-    <!-- Modal para calcular -->
-
-    <div id="myModal"
-        class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white rounded p-8">
-            <p id="modalContent" class="text-xl"></p>
-            <button id="closeModalButton"
-                class="mt-4 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
-                Cerrar
-            </button>
-        </div>
-    </div>
-
-    <!-- Modal para eliminar comensal -->
-
-    <div id="eliminarModal"
-        class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center">
-        <div class="bg-white rounded p-8">
-            <p id="eliminarModalContent" class="text-xl"></p>
-            <div class="flex justify-between mt-4 gap-4">
-                <button id="confirmarEliminarButton"
-                    class="flex-1 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-700 focus:outline-none ml-2">
-                    Mal ahí
-                </button>
-                <button id="cancelarEliminarButton"
-                    class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
-                    Cerrar
-                </button>
+    <header class="cabecera">
+        <div class="cabecera__marca">
+            <img class="cabecera__gif" src="./src/jesusBailando.gif" alt="Jesusito bailando">
+            <div>
+                <h1 class="cabecera__logo">Munimpanadas</h1>
+                <p class="cabecera__linea">Sistema para encargar empanadas</p>
             </div>
         </div>
+        <div class="cabecera__chips">
+            <div class="chip-dato">
+                <span class="chip-dato__valor js-unidades">0</span>
+                <span class="chip-dato__label">empanadas</span>
+            </div>
+            <div class="chip-dato chip-dato--destacado">
+                <span class="chip-dato__valor js-total">$0</span>
+                <span class="chip-dato__label">total</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="barra-consulta">
+        <p class="barra-consulta__texto">¿No sabés qué sabores hay hoy?</p>
+        <div class="barra-consulta__acciones">
+            <button type="button" id="btnConsultarDisponibilidad" class="boton boton--suave">Preguntar disponibilidad</button>
+            <label class="check-agotados">
+                <input type="checkbox" id="chkModoAgotados">
+                <span>Marcar agotados</span>
+            </label>
+            <button type="button" id="btnRepetirPedido" class="boton boton--suave" hidden>Repetir último pedido</button>
+            <button type="button" id="btnNuevoPedido" class="boton boton--suave">Nuevo pedido</button>
+        </div>
     </div>
 
-    <!-- Modal para enviar WhatsApp -->
+    <main class="mostrador">
 
-    <div id="numerosModal"
-        class="fixed top-0 left-0 flex justify-center items-center w-full h-full bg-gray-800 bg-opacity-50 hidden">
-        <div class="bg-white rounded-lg p-8 w-96">
-            <h2 class="text-xl font-bold mb-4">Seleccioná la sucursal</h2>
-            <div id="numerosModalContent" class="flex flex-col gap-4">
-                <label class="flex items-center gap-2">
-                    <input type="radio" name="numero" value="+5493834043077">
-                    <span>Av. Virgen del Valle</span>
+        <section class="armador">
+
+            <div class="paso">
+                <div class="paso__numero">1</div>
+                <div class="paso__contenido">
+                    <h2 class="paso__titulo">¿Quién pide?</h2>
+                    <form id="formComensal" class="fila-input" autocomplete="off">
+                        <input type="text" id="inputComensal" class="input" placeholder="Nombre del comensal" maxlength="30">
+                        <button type="submit" class="boton boton--suave">Sumar</button>
+                    </form>
+                    <div id="listaComensales" class="lista-chips"></div>
+                </div>
+            </div>
+
+            <div class="paso">
+                <div class="paso__numero">2</div>
+                <div class="paso__contenido">
+                    <h2 class="paso__titulo">Elegí el sabor</h2>
+                    <input type="search" id="buscadorSabores" class="input" placeholder="Buscar sabor…" autocomplete="off">
+                    <div id="listaSabores" class="grilla-sabores"></div>
+                </div>
+            </div>
+
+            <div class="paso paso--final">
+                <div class="paso__numero">3</div>
+                <div class="paso__contenido">
+                    <h2 class="paso__titulo">Cantidad y precio</h2>
+                    <div class="fila-input fila-input--centrada">
+                        <div class="stepper">
+                            <button type="button" id="btnMenos" class="stepper__boton" aria-label="Menos">−</button>
+                            <input type="number" id="inputCantidad" class="stepper__input" value="1" min="1" max="99" aria-label="Cantidad">
+                            <button type="button" id="btnMas" class="stepper__boton" aria-label="Más">+</button>
+                        </div>
+                        <div class="input-prefijo">
+                            <span>$</span>
+                            <input type="number" id="inputPrecio" min="0" placeholder="Precio c/u">
+                        </div>
+                        <button type="button" id="btnAgregarItem" class="boton boton--primario" disabled>Agregar al pedido</button>
+                    </div>
+                    <p id="resumenActual" class="resumen-actual">Elegí un comensal y un sabor para agregar.</p>
+                </div>
+            </div>
+
+        </section>
+
+        <aside class="panel-comanda" id="panelComanda">
+            <div class="panel-comanda__cabecera">
+                <h2 class="panel-comanda__titulo">Pedido</h2>
+                <span class="panel-comanda__subtitulo">lo que se va a mandar por WhatsApp</span>
+            </div>
+
+            <div id="comanda" class="comanda"></div>
+
+            <div class="panel-comanda__pie">
+                <p class="panel-comanda__aviso">El mensaje al local no lleva nombres ni precios, solo los sabores.</p>
+
+                <label class="campo-linea" for="inputEnvio">
+                    <span>Envío (solo para nosotros)</span>
+                    <span class="input-prefijo input-prefijo--chico">
+                        <span>$</span>
+                        <input type="number" id="inputEnvio" min="0" placeholder="0">
+                    </span>
                 </label>
-                <!-- Agregar más opciones de números si es necesario -->
+
+                <div class="desglose-linea">
+                    <span>Empanadas</span>
+                    <span class="js-subtotal">$0</span>
+                </div>
+                <div class="desglose-linea">
+                    <span>Envío</span>
+                    <span class="js-envio">$0</span>
+                </div>
+
+                <div class="panel-comanda__total">
+                    <span>Total</span>
+                    <span class="js-total"></span>
+                </div>
+
+                <div class="botones-doble">
+                    <button type="button" id="btnEnviarWhatsapp" class="boton boton--whatsapp">Mandar guarap</button>
+                    <button type="button" id="btnCopiarPedido" class="boton boton--suave">Copiar mensaje</button>
+                </div>
+
+                <div class="separador"><span>Cobro individual</span></div>
+                <p class="panel-comanda__aviso">Mensaje aparte con lo que le toca pagar a cada uno, envío incluido.</p>
+                <div class="input-prefijo">
+                    <span>+</span>
+                    <input type="tel" id="inputNumeroDesglose" placeholder="WhatsApp, ej: 5493834000000">
+                </div>
+                <div class="botones-doble">
+                    <button type="button" id="btnEnviarDesglose" class="boton boton--primario">Enviar desglose</button>
+                    <button type="button" id="btnCopiarDesglose" class="boton boton--suave">Copiar mensaje</button>
+                </div>
             </div>
-            <div class="flex justify-end mt-6">
-                <button id="seleccionarNumeroButton"
-                    class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 focus:outline-none">Enviar</button>
-                <button id="closeNumerosModalButton"
-                    class="ml-4 bg-gray-300 px-4 py-2 rounded hover:bg-gray-400 focus:outline-none">Cancelar</button>
+        </aside>
+
+    </main>
+
+    <div id="barraTotalMovil" class="barra-total-movil">
+        <div>
+            <span class="barra-total-movil__label">Total</span>
+            <span class="barra-total-movil__valor js-total">$0</span>
+        </div>
+        <button type="button" id="btnVerComanda" class="boton boton--primario">Ver pedido</button>
+    </div>
+
+    <div id="modalSucursales" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalSucursalesTitulo">
+        <div class="modal__caja">
+            <h3 id="modalSucursalesTitulo" class="modal__titulo">Seleccioná la sucursal</h3>
+            <div id="listaSucursales" class="lista-sucursales"></div>
+            <div class="modal__acciones">
+                <button type="button" id="btnCerrarModalSucursales" class="boton boton--suave">Cancelar</button>
+                <button type="button" id="btnConfirmarSucursal" class="boton boton--whatsapp">Enviar</button>
             </div>
         </div>
     </div>
 
-    <div id="resultado"
-        class="container mx-auto mt-6 p-4 grid gap-4 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+    <div id="modalConfirmacion" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalConfirmacionTitulo">
+        <div class="modal__caja">
+            <h3 id="modalConfirmacionTitulo" class="modal__titulo">¿Seguro?</h3>
+            <p id="modalConfirmacionTexto" class="modal__texto"></p>
+            <div class="modal__acciones">
+                <button type="button" id="btnCancelarConfirmacion" class="boton boton--suave">Cerrar</button>
+                <button type="button" id="btnAceptarConfirmacion" class="boton boton--peligro">Mal ahí</button>
+            </div>
+        </div>
     </div>
 
-    <script src="./js/index.js"></script>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script src="./js/data.js"></script>
+    <script src="./js/app.js"></script>
 </body>
 
 </html>
